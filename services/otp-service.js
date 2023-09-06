@@ -9,6 +9,7 @@ class OtpService {
     }
 
     async sendBySms(otp, phone) {
+        console.log(otp, phone)
         var unirest = require("unirest");
 
         var req = unirest("POST", "https://www.fast2sms.com/dev/bulkV2");
@@ -24,9 +25,9 @@ class OtpService {
         });
 
 
-        // req.end(function (res) {
-        //     console.log(res.body)
-        // });
+        req.end(function (res) {
+            console.log(res.body)
+        });
 
     }
 
