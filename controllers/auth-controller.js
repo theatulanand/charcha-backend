@@ -125,11 +125,15 @@ class AuthController {
         res.cookie('refreshToken', refreshToken, {
             maxAge: 1000 * 60 * 60 * 24 * 30,
             httpOnly: true,
+            domain: process.env.DOMAIN.FRONT_URL, 
+            path: '/', 
         });
 
         res.cookie('accessToken', accessToken, {
             maxAge: 1000 * 60 * 60 * 24 * 30,
             httpOnly: true,
+            domain: process.env.DOMAIN.FRONT_URL, 
+            path: '/'
         });
         // response
         const userDto = new UserDto(user);
