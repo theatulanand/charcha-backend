@@ -33,7 +33,7 @@ jobs:
           username: ${{ secrets.AZURE_VM_USER }}
           key: /tmp/deploy_key.pem
           script: |
-            cd /path/to/your/app
+            cd /charcha-app
             git pull origin main
             npm install
             # Download the .env file from the Gist
