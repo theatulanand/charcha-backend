@@ -37,6 +37,6 @@ jobs:
             git pull origin main
             npm install
             # Download the .env file from the Gist
-            # curl -o .env https://gist.githubusercontent.com/username/gist_id/raw/file_name.env
+            # curl -o .env https://gist.githubusercontent.com/username/gist_id/raw/
             # Restart the app using PM2 (or your app manager)
             pm2 restart all
