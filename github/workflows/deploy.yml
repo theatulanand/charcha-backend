@@ -1,0 +1,42 @@
+name: Deploy to Azure VM
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Decode and Set Up SSH Key
+        run: |
+          echo "${{ secrets.AZURE_VM_SSH_KEY }}" | base64 -d > /tmp/deploy_key.pem
+          chmod 400 /tmp/deploy_key.pem
+
+      - name: Deploy to Azure VM
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: ${{ secrets.AZURE_VM_IP }}
+          username: ${{ secrets.AZURE_VM_USER }}
+          key: /tmp/deploy_key.pem
+          script: |
+            cd /path/to/your/app
+            git pull origin main
+            npm install
+            # Download the .env file from the Gist
+            # curl -o .env https://gist.githubusercontent.com/username/gist_id/raw/file_name.env
+            # Restart the app using PM2 (or your app manager)
+            pm2 restart all
